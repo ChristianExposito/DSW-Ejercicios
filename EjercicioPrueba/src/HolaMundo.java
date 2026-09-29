@@ -1,4 +1,4 @@
-public class EjercicioPrueba1 {
+public class HolaMundo {
     public static void main(String[] args) {
         if (args.length > 0) {
             System.out.println("Hola" + args[0]);
@@ -7,3 +7,4 @@ public class EjercicioPrueba1 {
         }
     }
 }
+
