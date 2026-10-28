@@ -1,10 +1,16 @@
 package Christian.Animales.controller;
 
+import Christian.Animales.models.Animal;
 import Christian.Animales.services.AnimalService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class AnimalController {
@@ -19,9 +25,39 @@ public class AnimalController {
         this.service = service;
     }*/
 
-    @GetMapping("/index")
-        public String listarAnimales(Model model){
-            model.addAttribute("animales", as1.findAll());
-            return "index";
+    @GetMapping("animals/index")
+    public String listarAnimales(Model model) {
+        model.addAttribute("animales", as1.findAll());
+        return "animals/index";
+    }
+
+    @GetMapping("/animals/{id}")
+    public String obtenerId(@PathVariable int id, Model model) {
+        Animal animal = as1.findById(id);
+        model.addAttribute("animal", animal);
+        return "animals/detail";
+    }
+
+    @GetMapping("/animals/crear")
+    public String crear(Model model) {
+        model.addAttribute("animal", new Animal());
+        return "/animals/crear";
+    }
+
+    @PostMapping("/animals/crear")
+    public String crearAnimal(@Valid @ModelAttribute("animal") Animal animal, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+
+            return "/animals/crear";
+        } else {
+            as1.guardar(animal);
+            return "redirect:/animals/index";
         }
+    }
+    @GetMapping("/animals/borrar/{id}")
+    public String eliminarAnimal(@PathVariable("id") int id) {
+        as1.eliminar(id);
+        return "redirect:/animals/index";
+    }
 }
+
