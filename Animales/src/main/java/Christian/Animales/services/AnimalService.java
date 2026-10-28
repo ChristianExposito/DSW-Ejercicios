@@ -36,4 +36,15 @@ public class AnimalService {
     public void eliminar(int id) {
         animales.removeIf(animal -> animal.getId() == id);
     }
+    public void actualizar(Animal animalActualizado) {
+        for (Animal animal : animales) {
+            if (animal.getId() == animalActualizado.getId()) {
+                // Cogemos los datos de 'animalActualizado' y se los pasamos al animal original
+                animal.setNombre(animalActualizado.getNombre());
+                animal.setVidaMedia(animalActualizado.getVidaMedia());
+                animal.setExtinto(animalActualizado.getExtinto());
+                break;
+            }
+        }
+    }
 }

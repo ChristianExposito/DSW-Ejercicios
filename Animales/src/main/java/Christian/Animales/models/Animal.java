@@ -1,8 +1,16 @@
 package Christian.Animales.models;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 //Atributos
 public class Animal {
     private int id;
+    @NotBlank(message = "El nombre es obligatorio")
+    @Size(min = 3, max = 15, message = "El nombre debe tener entre 3 y 15 caracteres")
     private String nombre;
+    @Min(value = 0, message = "La vida media no puede ser menor a 0")
+    @Max(value = 600, message = "La vida media no puede superar los 600 años")
     private int vidaMedia;
     private boolean extinto;
     public Animal(){}

@@ -59,5 +59,26 @@ public class AnimalController {
         as1.eliminar(id);
         return "redirect:/animals/index";
     }
+    @GetMapping("/animals/editar/{id}")
+    public String mostrarFormularioEditar(@PathVariable("id") int id, Model model) {
+        // 1. Buscas el animal en tu lista/servicio por su ID
+        Animal animal = as1.findById(id);
+
+        // 2. Lo añades al modelo para que Thymeleaf lo reconozca en el HTML
+        model.addAttribute("animal", animal);
+
+        // 3. Devuelves la ruta de tu archivo HTML de editar (ej: "animals/editar" o "editar")
+        return "animals/editar";
+    }
+    @PostMapping("/animals/actualizar")
+    public String actualizarAnimal(@Valid @ModelAttribute("animal") Animal animal, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            // Si hay errores de validación, vuelve a la vista de editar y NO actualiza
+            return "animals/editar";
+        } else {
+            as1.actualizar(animal);
+            return "redirect:/animals/index";
+        }
+    }
 }
 
