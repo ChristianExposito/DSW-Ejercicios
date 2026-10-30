@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar</title>
+</head>
+<body>
+<form action="#" th:action="@{/animals/actualizar}" th:object="${animal}" method="post">
+  <input type="hidden" th:field="*{id}">
+
+  <div>
+    <input type="text" th:field="*{nombre}">
+    <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" style="color: red;"></p>
+  </div>
+
+  <div>
+    <input type="text" th:field="*{vidaMedia}">
+    <p th:if="${#fields.hasErrors('vidaMedia')}" th:errors="*{vidaMedia}" style="color: red;"></p>
+  </div>
+
+  <input type="checkbox" id="extinto" th:field="*{extinto}">
+  <label for="extinto">¿Está extinto?</label>
+
+  <input type="submit" value="Guardar cambios">
+</form>
+<br>
+<a th:href="@{/animals/index}">Volver al listado</a>
+</body>
+</html>
