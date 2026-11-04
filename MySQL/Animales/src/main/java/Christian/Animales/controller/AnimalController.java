@@ -4,6 +4,7 @@ import Christian.Animales.models.Animal;
 import Christian.Animales.services.AnimalService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,7 +56,14 @@ public class AnimalController {
         }
     }
     @GetMapping("/animals/borrar/{id}")
-    public String eliminarAnimal(@PathVariable("id") int id) {
+    public String eliminarAnimal(@PathVariable("id") int id, Model model) {
+       Animal animal= as1.findById(id);
+       model.addAttribute("animal", animal);
+
+        return "animals/borrar";
+    }
+    @PostMapping("/animals/borrar/{id}")
+    public String confirmarBorrar(@PathVariable("id")int id) {
         as1.eliminar(id);
         return "redirect:/animals/index";
     }

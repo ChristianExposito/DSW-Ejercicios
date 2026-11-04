@@ -37,7 +37,7 @@
                     <div class="btn-group btn-group-sm" role="group">
                         <a class="btn btn-dark" th:href="@{/animals/{id}(id=${animal.id})}">Detalles</a>
                         <a class="btn btn-outline-secondary" th:href="@{/animals/editar/{id}(id=${animal.id})}">Editar</a>
-                        <a th:href="@{/animals/borrar/{id}(id=${animal.id})}" class="btn-borrar">Borrar</a>
+                        <a class="btn-borrar" th:href="@{/animals/borrar/{id}(id=${animal.id})}" >Borrar</a>
                     </div>
                 </td>
             </tr>

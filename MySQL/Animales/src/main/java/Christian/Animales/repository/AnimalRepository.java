@@ -1,10 +1,11 @@
-package com.tuproyecto.repositories; // Ajusta según tu paquete base
+//Puente de comunicacion entre aplicacion y BD
+package Christian.Animales.repository;
 
-import com.tuproyecto.models.Animal;
+import Christian.Animales.models.Animal;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
+//Al poner extends JpaRepostory estas heredando las funciones de find,save,delete
 @Repository
-public interface AnimalRepository extends JpaRepository<Animal, Long> {
-    // Aquí tendrás disponibles todos los métodos CRUD automáticamente (save, findAll, findById, delete, etc.)
+public interface AnimalRepository extends JpaRepository<Animal, Integer> {
+
 }

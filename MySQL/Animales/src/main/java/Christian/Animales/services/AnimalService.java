@@ -1,50 +1,39 @@
 package Christian.Animales.services;
 
 import Christian.Animales.models.Animal;
-import org.springframework.stereotype.Service; // <- Asegúrate de importar esto
+import Christian.Animales.repository.AnimalRepository;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AnimalService {
-    private final List<Animal> animales = new ArrayList<>();
 
-    public AnimalService() {
-        animales.add(new Animal(1, "dodo", 30, true));
-        animales.add(new Animal(2, "tortuga", 100, false));
-        animales.add(new Animal(3, "Lince", 15, false));
+    private final AnimalRepository repo;
+
+    public AnimalService(AnimalRepository repo) {
+        this.repo = repo;
     }
 
     public List<Animal> findAll() {
-        return animales;
+        return repo.findAll();
     }
 
-    public Animal findById(int id) {
-        for (Animal animal : animales) {
-            if (animal.getId() == id) {
-                return animal;
-            }
-        }
-        return null;
+    public Animal findById(Integer id) {
+        Optional<Animal> animal = repo.findById(id);
+        return animal.orElse(null);
     }
+
     public void guardar(Animal animal) {
-        // Asigna un ID automático (ej: tamaño de la lista + 1)
-        animal.setId(this.animales.size() + 1);
-        this.animales.add(animal);
+        repo.save(animal);
     }
-    public void eliminar(int id) {
-        animales.removeIf(animal -> animal.getId() == id);
+
+    public void eliminar(Integer id) {
+        repo.deleteById(id);
     }
+
     public void actualizar(Animal animalActualizado) {
-        for (Animal animal : animales) {
-            if (animal.getId() == animalActualizado.getId()) {
-                // Cogemos los datos de 'animalActualizado' y se los pasamos al animal original
-                animal.setNombre(animalActualizado.getNombre());
-                animal.setVidaMedia(animalActualizado.getVidaMedia());
-                animal.setExtinto(animalActualizado.getExtinto());
-                break;
-            }
-        }
+        repo.save(animalActualizado);
     }
 }
