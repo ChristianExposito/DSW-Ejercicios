@@ -65,4 +65,19 @@ public class Animal {
     public void setExtinto(boolean extinto) {
         this.extinto = extinto;
     }
+
+    // añadimos este atributo:
+
+    @ManyToOne
+    @JoinColumn(name = "clase_id")
+    private Clase clase;
+
+    // Y sus getters y setters correspondientes:
+    public Clase getClase() {
+        return clase;
+    }
+
+    public void setClase(Clase clase) {
+        this.clase = clase;
+    }
 }
