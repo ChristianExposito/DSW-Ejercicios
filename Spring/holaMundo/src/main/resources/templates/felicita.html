@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 2</title>
+</head>
+<body>
+
+<h1>Ejercicio 2</h1>
+
+<!-- Mensaje principal con los datos del Model -->
+<p>
+    Hoy el usuario con ID: <span th:text="${idUsuario}"></span>
+    cumple <span th:text="${edadUsuario}"></span> años
+</p>
+
+
+<ul>
+    <li th:each="i : ${#numbers.sequence(1, edadUsuario)}"><!-- Lista de enlaces repetidos tantas veces como indique la edad -->
+        <a th:href="@{/saludos}" th:text="'Felicidades ' + ${nombreUsuario}"></a></li>
+</ul>
+
+</body>
+</html>
